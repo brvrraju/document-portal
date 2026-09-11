@@ -12,19 +12,21 @@ def test_ingestor_initialization():
     assert ingestor is not None
     print("Ingestor initialized successfully.")
 
-def test_ingest_method_scaffolding():
-    """Test calling the ingest method (currently scaffolding)."""
+def test_ingest_method():
+    """Test calling the fully implemented ingest method."""
     ingestor = DocumentIngestor()
-    # Passing one of our sample PDFs to the scaffolding method
+    # Passing one of our sample PDFs
     sample_pdf_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../docs/sample_document_1.pdf'))
     result = ingestor.ingest(sample_pdf_path)
     
-    # Since it's scaffolding, it should return None right now
-    assert result is None
-    print("Ingest method called successfully (returned None as expected for scaffolding).")
+    # The method now extracts text, so it should return a non-empty string
+    assert result is not None
+    assert isinstance(result, str)
+    assert "Sample Document 1" in result
+    print("Ingest method called successfully and returned extracted text.")
 
 if __name__ == "__main__":
     # Run the tests manually if executed directly
     test_ingestor_initialization()
-    test_ingest_method_scaffolding()
+    test_ingest_method()
     print("All tests passed!")
