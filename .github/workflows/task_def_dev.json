@@ -6,6 +6,8 @@
   ],
   "cpu": "256",
   "memory": "512",
+  "executionRoleArn": "ecsTaskExecutionRole",
+  "taskRoleArn": "ecsTaskExecutionRole",
   "containerDefinitions": [
     {
       "name": "document-portal-container",
