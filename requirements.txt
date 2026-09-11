@@ -1,0 +1,44 @@
+# Core LLM and orchestration
+langchain==1.4.0
+langchain-community==0.4.2
+langchain-openai==1.6.0
+
+# PDF Parsing
+PyPDF2==3.0.1
+pdfplumber==0.11.10
+pymupdf==1.28.0
+
+# Embeddings and Vector DB
+sentence-transformers==5.1.2
+chromadb==1.5.9
+faiss-cpu==1.14.3
+
+# UI / Web
+streamlit==1.59.2
+
+# Utilities
+python-dotenv==1.2.2
+pyyaml==6.0.3
+pandas==3.0.3
+pydantic==2.13.4
+
+# API Backend
+fastapi
+uvicorn
+
+# Additional Loaders & Tokenizers
+tiktoken
+docx2txt
+unstructured
+markdown
+pypdf
+
+# AWS Deployment
+boto3
+gunicorn
+
+# Missing Dependencies
+python-multipart
+langchain-text-splitters
+fpdf
+pytest

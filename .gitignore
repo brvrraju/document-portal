@@ -1,0 +1,32 @@
+# Environments
+.env
+.venv/
+venv/
+env/
+ENV/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Pytest / Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+logs/
+*.log
+
+# Project specific (Data, Indexes, Results)
+faiss_index/
+docs/docComparator/
+*.json
+*.sqlite3
+*.db
+scratch/
+
+# OS specific
+.DS_Store
+Thumbs.db

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo-container">
+            <div class="logo-icon">
+                <div class="square sq-green"></div>
+                <div class="square sq-pink"></div>
+                <div class="square sq-blue"></div>
+            </div>
+            <h1 class="logo-text">Document Portal</h1>
+        </div>
+        <nav class="nav-links">
+            <button class="nav-btn tab-btn" data-tab="analyze">Document Analysis</button>
+            <button class="nav-btn tab-btn" data-tab="compare">Document Compare</button>
+            <button class="nav-btn tab-btn active" data-tab="chat">Doc Chat</button>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- ANALYZE TAB -->
+        <section id="tab-analyze" class="tab-panel">
+            <div class="card">
+                <div class="card-header">
+                    <span class="chat-icon">🔍</span>
+                    <h2>Document Analysis</h2>
+                </div>
+                <p class="subtitle">Extract structured metadata and summaries from your documents.</p>
+                
+                <div class="form-grid">
+                    <div class="input-group span-full">
+                        <label>Upload file</label>
+                        <div class="file-upload-wrapper">
+                            <button class="file-btn" type="button" onclick="document.getElementById('an-file').click()">Choose File</button>
+                            <span class="file-status" id="an-status">No file chosen</span>
+                            <input type="file" id="an-file" accept=".pdf,.docx,.txt" class="hidden-file-input">
+                        </div>
+                    </div>
+                    <div class="input-group span-full">
+                        <button id="btn-analyze" class="primary-btn">Analyze Document</button>
+                    </div>
+                </div>
+                
+                <div class="answer-area">
+                    <label>Analysis Output</label>
+                    <pre class="answer-box json-output" id="an-json">No output yet.</pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMPARE TAB -->
+        <section id="tab-compare" class="tab-panel">
+            <div class="card">
+                <div class="card-header">
+                    <span class="chat-icon">⚖️</span>
+                    <h2>Document Compare</h2>
+                </div>
+                <p class="subtitle">Compare two documents and highlight the differences.</p>
+                
+                <div class="form-grid">
+                    <div class="input-group span-full">
+                        <label>Reference File</label>
+                        <div class="file-upload-wrapper">
+                            <button class="file-btn" type="button" onclick="document.getElementById('cmp-ref').click()">Choose Reference</button>
+                            <span class="file-status" id="cmp-ref-status">No file chosen</span>
+                            <input type="file" id="cmp-ref" accept=".pdf,.docx,.txt" class="hidden-file-input">
+                        </div>
+                    </div>
+                    <div class="input-group span-full">
+                        <label>Actual/Modified File</label>
+                        <div class="file-upload-wrapper">
+                            <button class="file-btn" type="button" onclick="document.getElementById('cmp-act').click()">Choose Actual</button>
+                            <span class="file-status" id="cmp-act-status">No file chosen</span>
+                            <input type="file" id="cmp-act" accept=".pdf,.docx,.txt" class="hidden-file-input">
+                        </div>
+                    </div>
+                    <div class="input-group span-full">
+                        <button id="btn-compare" class="primary-btn">Compare Documents</button>
+                    </div>
+                </div>
+                
+                <div class="answer-area">
+                    <label>Comparison Results</label>
+                    <div class="answer-box table-wrapper">
+                        <table class="data-table" id="cmp-table">
+                            <thead>
+                                <tr>
+                                    <th>Page</th>
+                                    <th>Changes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td colspan="2" class="muted center">Upload both files to compare.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAT TAB -->
+        <section id="tab-chat" class="tab-panel active">
+            <div class="card">
+                <div class="card-header">
+                    <span class="chat-icon">💬</span>
+                    <h2>Chat with your Documents</h2>
+                </div>
+                <p class="subtitle">Upload files, index to FAISS, and enable RAG chat.</p>
+                
+                <div class="form-grid">
+                    <!-- Upload Files -->
+                    <div class="input-group span-full">
+                        <label>Upload files</label>
+                        <div class="file-upload-wrapper">
+                            <button class="file-btn" type="button" onclick="document.getElementById('chat-files').click()">Choose Files</button>
+                            <span class="file-status" id="chat-files-status">No file chosen</span>
+                            <input type="file" id="chat-files" multiple accept=".pdf,.docx,.txt" class="hidden-file-input">
+                        </div>
+                        <small class="helper-text">You can select multiple files.</small>
+                    </div>
+
+                    <!-- Session ID -->
+                    <div class="input-group">
+                        <label for="chat-session">Session ID (optional)</label>
+                        <input type="text" id="chat-session" placeholder="Leave blank for auto sessio">
+                    </div>
+
+                    <!-- Chunk Size -->
+                    <div class="input-group">
+                        <label for="chat-chunk">Chunk size</label>
+                        <input type="number" id="chat-chunk" value="1000">
+                    </div>
+
+                    <!-- Chunk Overlap -->
+                    <div class="input-group">
+                        <label for="chat-overlap">Chunk overlap</label>
+                        <input type="number" id="chat-overlap" value="200">
+                    </div>
+
+                    <!-- Top-K & Toggle -->
+                    <div class="input-group top-k-group">
+                        <div class="top-k-wrapper">
+                            <label for="chat-k">Top-K</label>
+                            <input type="number" id="chat-k" value="5">
+                        </div>
+                        
+                        <div class="toggle-wrapper">
+                            <span class="toggle-label highlight">Use session-based FAISS</span>
+                            <label class="switch">
+                                <input type="checkbox" id="chat-sessionized" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Build Index Button -->
+                    <div class="input-group build-btn-group">
+                        <button id="btn-build" class="primary-btn">Build / Update Index</button>
+                    </div>
+                </div>
+                
+                <div id="chat-meta" class="helper-text span-full" style="margin-bottom: 2rem;"></div>
+
+                <!-- Question Area -->
+                <div class="question-area" onsubmit="return false;">
+                    <label for="chat-q">Your Question</label>
+                    <div class="question-wrapper">
+                        <input type="text" id="chat-q" placeholder="Ask a question about your documents...">
+                        <button id="btn-ask" class="send-btn">Send</button>
+                    </div>
+                </div>
+
+                <!-- Answer Area -->
+                <div class="answer-area">
+                    <label>Answer</label>
+                    <div class="answer-box" id="chat-answer">
+                        No answer yet.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <span class="copyright">© Document Portal</span>
+        <span class="disclaimer">UI connected to FastAPI backend.</span>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

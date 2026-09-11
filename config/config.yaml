@@ -1,0 +1,11 @@
+llm:
+  provider: openai
+  model_name: gpt-5.4-nano
+  temperature: 0.0
+
+ingestion:
+  supported_extensions:
+    - .pdf
+    - .docx
+    - .txt
+    - .md
