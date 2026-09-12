@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     
     // API Base URL (Assumes frontend is served by FastAPI or runs on same host, update if needed)
-    const API_BASE = "http://127.0.0.1:8000";
+    const API_BASE = "";
 
     // --- Tab Switching Logic ---
     const tabs = document.querySelectorAll('.tab-btn');
