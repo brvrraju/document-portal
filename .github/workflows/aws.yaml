@@ -88,6 +88,8 @@ jobs:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.CONTAINER_NAME }}
           image: ${{ needs.build-and-push.outputs.image }}
+          environment-variables: |
+            OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
           
       - name: Deploy to ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2
@@ -128,6 +130,8 @@ jobs:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.CONTAINER_NAME }}
           image: ${{ needs.build-and-push.outputs.image }}
+          environment-variables: |
+            OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
           
       - name: Deploy to ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2
@@ -168,6 +172,8 @@ jobs:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.CONTAINER_NAME }}
           image: ${{ needs.build-and-push.outputs.image }}
+          environment-variables: |
+            OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
           
       - name: Deploy to ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2
